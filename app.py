@@ -29,19 +29,19 @@ def login():
     if person["is_logged_in"] == True:
         return redirect(url_for('welcome'))
     else:
-        return render_template("login.html")
+        return render_template("sign-in.html")
     
 
 #Sign up - Register
 @app.route("/signup")
 def signup():
-    return render_template("signup.html")
+    return render_template("sign-up.html")
 
 #Welcome Page
 @app.route("/welcome")
 def welcome():
     if person["is_logged_in"] == True:
-        return render_template("welcome.html", email = person["email"], name = person["name"])
+        return render_template("index.html", email = person["email"], name = person["name"])
     else:
         return redirect(url_for('login'))
     

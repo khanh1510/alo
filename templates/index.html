@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="/static/style.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css" rel="stylesheet">
+
+</head>
+<body>
+    <header class="header">
+        <nav class="nav container">
+           <div class="nav__data">
+              <a href="#" class="nav__logo">
+                 <i class="ri-planet-line"></i> Bệnh viện Bách Khoa
+              </a>
+              
+              <div class="nav__toggle" id="nav-toggle">
+                 <i class="ri-menu-line nav__burger"></i>
+                 <i class="ri-close-line nav__close"></i>
+              </div>
+           </div>
+
+           <!--=============== NAV MENU ===============-->
+           <div class="nav__menu" id="nav-menu">
+              <ul class="nav__list">
+                 <li><a href="#" class="nav__link">Trang chủ</a></li>
+
+                 <li class="dropdown__item">
+                    <div class="nav__link">
+                       Bệnh nhân <i class="ri-arrow-down-s-line dropdown__arrow"></i>
+                    </div>
+
+                    <ul class="dropdown__menu">
+                       <li>
+                          <a href="#" class="dropdown__link">
+                             <i ></i> Nội trú
+                          </a>                          
+                       </li>
+
+                       <li>
+                          <a href="#" class="dropdown__link">
+                             <i></i> Ngoại trú
+                          </a>
+                       </li>
+
+                    </ul>
+                 </li>
+
+                 <!--=============== DROPDOWN 1 ===============-->
+                 <li class="dropdown__item">
+                    <div class="nav__link">
+                       Bác sĩ <i class="ri-arrow-down-s-line dropdown__arrow"></i>
+                    </div>
+
+                    <ul class="dropdown__menu">
+                       <li>
+                          <a href="#" class="dropdown__link">
+                             <i ></i> Khoa cấp cứu
+                          </a>                          
+                       </li>
+
+                       <li>
+                          <a href="#" class="dropdown__link">
+                             <i></i> Khoa Nội
+                          </a>
+                       </li>
+
+                       <li>
+                        <a href="#" class="dropdown__link">
+                            <i></i> Khoa Ngoại
+                        </a>
+                     </li>
+
+                     <li>
+                        <a href="#" class="dropdown__link">
+                            <i></i> Khoa Răng hàm mặt
+                        </a>
+                     </li>
+
+                     <li>
+                        <a href="#" class="dropdown__link">
+                            <i></i> Khoa Tim mạch
+                        </a>
+                     </li>
+
+                     <li>
+                        <a href="#" class="dropdown__link">
+                            <i></i> Khoa Mắt
+                        </a>
+                     </li>
+
+                    </ul>
+                 </li>
+                 
+                 <li class="dropdown__item">
+                    <div class="nav__link">
+                       Dược phẩm <i class="ri-arrow-down-s-line dropdown__arrow"></i>
+                    </div>
+
+                    <ul class="dropdown__menu">
+                       <li>
+                          <a href="#" class="dropdown__link">
+                             <i ></i> Thuốc uống
+                          </a>                          
+                       </li>
+
+                       <li>
+                          <a href="#" class="dropdown__link">
+                             <i></i> Dụng cụ
+                          </a>
+                       </li>
+                    </ul>
+                 </li>
+
+                 <li><a href="#" class="nav__link">Tài Chính</a></li>
+
+                 <!--=============== DROPDOWN 2 ===============-->
+                 <li class="dropdown__item">
+                    <div class="nav__link">
+                       Users <i class="ri-arrow-down-s-line dropdown__arrow"></i>
+                    </div>
+
+                    <ul class="dropdown__menu">
+                       <li>
+                          <a href="#" class="dropdown__link">
+                             <i></i> Dashboard
+                          </a>                          
+                       </li>
+
+                       <li>
+                          <a href="#" class="dropdown__link">
+                             <i></i> Log Out
+                          </a>
+                       </li>
+                    </ul>
+                 </li>
+
+              </ul>
+           </div>
+        </nav>
+     </header>
+    <!--Nav end-->
+
+    <section class="Featured">
+        <div class="container featured-container">
+            <div class="post-thumb">
+                <img src="/static/img/benhvien.jpg" alt="">
+            </div>
+            <div class="post-info">
+                <div class="category-btn">Discovery</div>
+                <h2 class="post-title"><a href="#">Lorem, ipsum dolor sit amet consectetur adipisicing elit. </a></h2>
+                <p class="post-body>">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi incidunt quidem numquam ducimus voluptatem consequatur et, placeat labore, sit non maiores repudiandae aut odit maxime id, laudantium eveniet doloribus nostrum.
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi incidunt quidem numquam ducimus voluptatem consequatur et, placeat labore, sit non maiores repudiandae aut odit maxime id, laudantium eveniet doloribus nostrum. </p>
+                
+                <div class="post-profile">
+                    <div class="post-profile-img">
+                        <img src="/static/img/bacsi.jpg" alt="">
+                    </div>
+                    <div class="post-profile-info">
+                        <h5>Kaitoo Desu</h5>
+                        <small>June 14, 2024</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="post">
+        <div class="post-container container">
+            <article class="post">
+                <div class="post-thumb">
+                    <img src="/static/img/benhnhan.jpg" alt="">
+                </div>
+                <div class="post-info">
+                    <div class="category-btn">Photography</div>
+
+                    <h3 class="post-title"><a href="post.html">Lorem ipsum dolor, sit amet consectetur adipisicing.</a></h3>
+                    <p class="postbody">Lorem ipsum dolor sit amet con
+                        sectetur adipisicing elit. Quisquam blanditiis eligendi ullam ab et doloremque explicabo placeat ratione recusandae numquam.
+                    </p>
+                    
+                    <div class="post-profile">
+                        <div class="post-profile-img">
+                            <img src="/static/img/youngman.jpg" alt="">
+                        </div>
+                        <div class="post-profile-info">
+                            <h5>Kaitoo Desu</h5>
+                            <small>June 14, 2024</small>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            
+            <article class="post">
+                <div class="post-thumb">
+                    <img src="/static/img/giuong.jpg" alt="">
+                </div>
+                <div class="post-info">
+                    <div class="category-btn">Photography</div>
+
+                    <h3 class="post-title"><a href="post.html">Lorem ipsum dolor, sit amet consectetur adipisicing.</a></h3>
+                    <p class="postbody">Lorem ipsum dolor sit amet con
+                        sectetur adipisicing elit. Quisquam blanditiis eligendi ullam ab et doloremque explicabo placeat ratione recusandae numquam.
+                    </p>
+                    
+                    <div class="post-profile">
+                        <div class="post-profile-img">
+                            <img src="/static/img/youngman.jpg" alt="">
+                        </div>
+                        <div class="post-profile-info">
+                            <h5>Kaitoo Desu</h5>
+                            <small>June 14, 2024</small>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <article class="post">
+                <div class="post-thumb">
+                    <img src="/static/img/hanhlang.jpg" alt="">
+                </div>
+                <div class="post-info">
+                    <div class="category-btn">Photography</div>
+
+                    <h3 class="post-title"><a href="post.html">Lorem ipsum dolor, sit amet consectetur adipisicing.</a></h3>
+                    <p class="postbody">Lorem ipsum dolor sit amet con
+                        sectetur adipisicing elit. Quisquam blanditiis eligendi ullam ab et doloremque explicabo placeat ratione recusandae numquam.
+                    </p>
+                    
+                    <div class="post-profile">
+                        <div class="post-profile-img">
+                            <img src="/static/img/youngman.jpg" alt="">
+                        </div>
+                        <div class="post-profile-info">
+                            <h5>Kaitoo Desu</h5>
+                            <small>June 14, 2024</small>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <article class="post">
+                <div class="post-thumb">
+                    <img src="/static/img/phau_thuat.jpg" alt="">
+                </div>
+                <div class="post-info">
+                    <div class="category-btn">Photography</div>
+
+                    <h3 class="post-title"><a href="post.html">Lorem ipsum dolor, sit amet consectetur adipisicing.</a></h3>
+                    <p class="postbody">Lorem ipsum dolor sit amet con
+                        sectetur adipisicing elit. Quisquam blanditiis eligendi ullam ab et doloremque explicabo placeat ratione recusandae numquam.
+                    </p>
+                    
+                    <div class="post-profile">
+                        <div class="post-profile-img">
+                            <img src="/static/img/youngman.jpg" alt="">
+                        </div>
+                        <div class="post-profile-info">
+                            <h5>Kaitoo Desu</h5>
+                            <small>June 14, 2024</small>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <article class="post">
+                <div class="post-thumb">
+                    <img src="/static/img/phongkham.jpg" alt="">
+                </div>
+                <div class="post-info">
+                    <div class="category-btn">Photography</div>
+
+                    <h3 class="post-title"><a href="post.html">Lorem ipsum dolor, sit amet consectetur adipisicing.</a></h3>
+                    <p class="postbody">Lorem ipsum dolor sit amet con
+                        sectetur adipisicing elit. Quisquam blanditiis eligendi ullam ab et doloremque explicabo placeat ratione recusandae numquam.
+                    </p>
+                    
+                    <div class="post-profile">
+                        <div class="post-profile-img">
+                            <img src="/static/img/youngman.jpg" alt="">
+                        </div>
+                        <div class="post-profile-info">
+                            <h5>Kaitoo Desu</h5>
+                            <small>June 14, 2024</small>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <article class="post">
+                <div class="post-thumb">
+                    <img src="/static/img/walk.jpg" alt="">
+                </div>
+                <div class="post-info">
+                    <div class="category-btn">Photography</div>
+
+                    <h3 class="post-title"><a href="post.html">Lorem ipsum dolor, sit amet consectetur adipisicing.</a></h3>
+                    <p class="postbody">Lorem ipsum dolor sit amet con
+                        sectetur adipisicing elit. Quisquam blanditiis eligendi ullam ab et doloremque explicabo placeat ratione recusandae numquam.
+                    </p>
+                    
+                    <div class="post-profile">
+                        <div class="post-profile-img">
+                            <img src="/static/img/youngman.jpg" alt="">
+                        </div>
+                        <div class="post-profile-info">
+                            <h5>Kaitoo Desu</h5>
+                            <small>June 14, 2024</small>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+
+    <section class="Category">
+        <div class="category-container container">
+            <a href="#" class="category-btn">Discovery</a>
+            <a href="#" class="category-btn">Food</a>
+            <a href="#" class="category-btn">Technology</a>
+            <a href="#" class="category-btn">Photography</a>
+            <a href="#" class="category-btn">Travel</a>
+            <a href="#" class="category-btn">Music</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-social">
+            <a href=""><i class="fab fa-facebook"></i></a>
+            <a href=""><i class="fab fa-instagram"></i></a>
+            <a href=""><i class="fab fa-twitter"></i></a>
+            <a href=""><i class="fab fa-linkedin"></i></a>
+        </div>
+        <div class="container footer-container">
+            <article>
+                <h4>Categories</h4>
+                <ul>
+                    <li><a>Discovery</a></li>
+                    <li><a>Technology</a></li>
+                    <li><a>Sports</a></li>
+                    <li><a>Music</a></li>
+                    <li><a>World</a></li>
+                    <li><a>Photo</a></li>
+                    <li><a>Travel</a></li>
+                    <li><a>Noname</a></li>
+                    <li><a>Vietnam</a></li>
+
+                </ul>
+            </article>
+
+            <article>
+                <h4>Support</h4>
+                <ul>
+                    <li><a>Email</a></li>
+                    <li><a>Phone number</a></li>
+                    <li><a>Manager</a></li>
+                    <li><a>Remote</a></li>
+                </ul>
+            </article>
+            <article>
+                <h4>Online</h4>
+                <ul>
+                    <li><a>Home</a></li>
+                    <li><a>About</a></li>
+                    <li><a>Services</a></li>
+                    <li><a>Blog</a></li>
+                    <li><a>Location</a></li>
+                </ul>
+            </article>
+        </div>
+        
+        <div class="footer-copyright">
+            Copyright &copf; Kaitoo Desu
+        </div>
+
+    </footer>
+
+    <script src="./Assets/main.js"></script>
+
+</body>
+</html>
