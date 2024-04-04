@@ -41,7 +41,7 @@ def signup():
 @app.route("/welcome")
 def welcome():
     if person["is_logged_in"] == True:
-        return render_template("index.html", email = person["email"], name = person["name"])
+        return render_template("index.html")
     else:
         return redirect(url_for('login'))
     
@@ -53,6 +53,7 @@ def result():
         email = result["email"]
         password = result["pass"]
         try:
+
             user = auth.sign_in_with_email_and_password(email, password)
 
             global person
@@ -108,6 +109,15 @@ def register():
             return redirect(url_for('welcome'))
         else:
             return redirect(url_for('register'))
+        
+@app.route("/logout", methods=["POST", "GET"])
+def logout():
+    person["is_logged_in"] = False
+    person["uid"] = ""
+    person["email"] = ""
+    person["name"] = ""
+    return redirect(url_for('welcome'))
+
 
 @app.after_request
 def add_nocache_headers(response):
