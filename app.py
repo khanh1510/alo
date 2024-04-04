@@ -45,6 +45,18 @@ def welcome():
     else:
         return redirect(url_for('login'))
     
+@app.route("/logic_process")
+def process_logic():
+    if person["is_logged_in"] == True:
+        source = request.args.get('source')
+        if source == "a":
+            nhan_vien = db.child("users").get()
+            return render_template("test.html", nhan_vien=nhan_vien)
+    else:
+        return redirect(url_for('welcome'))
+    
+
+    
 #if someone clikcs on login, they are redirected to /result
 @app.route("/result", methods=["POST", "GET"])
 def result():

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Danh sách nhân viên</title>
+</head>
+<body>
+  <h1>Danh sách nhân viên</h1>
+  <ul>
+    {% for nhan_vien in nhan_vien.each() %}
+      <li>
+        <strong>Tên:</strong> {{ nhan_vien.val()['name'] }}<br>
+        <strong>Email:</strong> {{ nhan_vien.val()['email'] }}<br>
+      </li>
+    {% endfor %}
+  </ul>
+</body>
+</html>
