@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='register.css') }}"
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='sign_in.css') }}"
 </head>
 <body>
     <div class="wrapper fadeInDown">
@@ -15,14 +15,14 @@
       
           <!-- Icon -->
           <div class="fadeIn first">
-            <img src="{{ url_for('static', filename = '3135823.png') }}" id="icon" alt="User Icon" />
+            <img src="{{ url_for('static', filename = 'avatar.png') }}" id="icon" alt="User Icon" />
           </div>
       
           <!-- Login Form -->
           <form action="/register" method="POST">
-            <input type="text" id="name" class="fadeIn second" name="name" placeholder="name">
-            <input type="email" id="login" class="fadeIn second" name="email" placeholder="email">
-            <input type="password" id="password" class="fadeIn third" name="pass" placeholder="password">
+            <input type="text" id="name" class="fadeIn second" name="name" placeholder="Name">
+            <input type="email" id="login" class="fadeIn second" name="email" placeholder="Email">
+            <input type="password" id="password" class="fadeIn third" name="pass" placeholder="Password">
             <input type="submit" class="fadeIn fourth" value="Sign Up">
           </form>
       

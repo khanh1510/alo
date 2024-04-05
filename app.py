@@ -31,13 +31,7 @@ def login():
     else:
         return render_template("sign-in.html")
     
-
-#Sign up - Register
-@app.route("/signup")
-def signup():
-    return render_template("sign-up.html")
-
-#Welcome Page
+#Home page
 @app.route("/welcome")
 def welcome():
     if person["is_logged_in"] == True:
@@ -45,6 +39,27 @@ def welcome():
     else:
         return redirect(url_for('login'))
     
+
+#Sign up - Register
+@app.route("/signup")
+def signup():
+    if person["is_logged_in"] == True:
+        return redirect(url_for('welcome'))
+    else:
+        return render_template("sign-up.html")
+
+#Log out - redirect to login page
+@app.route("/logout", methods=["POST", "GET"])
+def logout():
+    global person
+    person["is_logged_in"] = False
+    person["uid"] = ""
+    person["email"] = ""
+    person["name"] = ""
+    return redirect(url_for('welcome'))
+
+
+#Xu li de in ra ket qua cua nhan vien y bac si
 @app.route("/logic_process")
 def process_logic():
     if person["is_logged_in"] == True:
@@ -57,7 +72,7 @@ def process_logic():
     
 
     
-#if someone clikcs on login, they are redirected to /result
+#Xu li viec dang nhap co thanh cong hay khong
 @app.route("/result", methods=["POST", "GET"])
 def result():
     if request.method == "POST":
@@ -89,7 +104,7 @@ def result():
         else:
             return redirect(url_for('login'))
         
-#If someone clicks on register, they are redireted to /register
+#Xu li logic viec register
 @app.route("/register", methods=["POST", "GET"])
 def register():
     if request.method == "POST":
@@ -112,23 +127,13 @@ def register():
             data = {"name": name, "email": email}
             db.child("users").child(person["uid"]).set(data)
 
-            request.cookies.pop()
+            #request.cookies.pop()
             return redirect(url_for('welcome'))
         except:
             return redirect(url_for('register'))
     else:
-        if person["is_logged_in"] == True:
-            return redirect(url_for('welcome'))
-        else:
-            return redirect(url_for('register'))
-        
-@app.route("/logout", methods=["POST", "GET"])
-def logout():
-    person["is_logged_in"] = False
-    person["uid"] = ""
-    person["email"] = ""
-    person["name"] = ""
-    return redirect(url_for('welcome'))
+        return redirect(url_for('welcome'))
+
 
 
 @app.after_request
