@@ -65,8 +65,19 @@ def process_logic():
     if person["is_logged_in"] == True:
         source = request.args.get('source')
         if source == "a":
-            nhan_vien = db.child("Khoa").child("Da").get()
-            return render_template("doctor.html", nhan_vien=nhan_vien)
+            nhan_vien = db.child("Khoa").child("Capcuu").get()
+        if source == "b":
+            nhan_vien = db.child("Khoa").child("Noi").get()
+        if source == "c":
+            nhan_vien = db.child("Khoa").child("Ngoai").get()
+        if source == "d":
+            nhan_vien = db.child("Khoa").child("Rang").get()
+        if source == "e":
+            nhan_vien = db.child("Khoa").child("Timmach").get()
+        if source == "f":
+            nhan_vien = db.child("Khoa").child("Mat").get()
+
+        return render_template("doctor.html", nhan_vien=nhan_vien)
     else:
         return redirect(url_for('welcome'))
     

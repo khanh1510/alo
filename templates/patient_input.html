@@ -1,1 +1,160 @@
-<h1>TRANG NHẬP THÔNG TIN BỆNH NHÂN</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="/static/style.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css" rel="stylesheet">
+
+</head>
+<body>
+    <header class="header">
+        <nav class="nav container">
+           <div class="nav__data">
+              <a href="#" class="nav__logo">
+                 <i class="ri-planet-line"></i> Bệnh viện Bách Khoa
+              </a>
+              
+              <div class="nav__toggle" id="nav-toggle">
+                 <i class="ri-menu-line nav__burger"></i>
+                 <i class="ri-close-line nav__close"></i>
+              </div>
+           </div>
+
+           <!--=============== NAV MENU ===============-->
+           <div class="nav__menu" id="nav-menu">
+              <ul class="nav__list">
+                 <li><a href="#" class="nav__link">Trang chủ</a></li>
+
+                 <li class="dropdown__item">
+                    <div class="nav__link">
+                       Bệnh nhân <i class="ri-arrow-down-s-line dropdown__arrow"></i>
+                    </div>
+
+                    <ul class="dropdown__menu">
+                       <li>
+                          <a href="#" class="dropdown__link">
+                             <i ></i> Nội trú
+                          </a>                          
+                       </li>
+
+                       <li>
+                          <a href="#" class="dropdown__link">
+                             <i></i> Ngoại trú
+                          </a>
+                       </li>
+
+                    </ul>
+                 </li>
+
+                 <!--=============== DROPDOWN 1 ===============-->
+                 <li class="dropdown__item">
+                    <div class="nav__link">
+                       Bác sĩ <i class="ri-arrow-down-s-line dropdown__arrow"></i>
+                    </div>
+
+                    <ul class="dropdown__menu">
+                       <li>
+                          <a href="/logic_process?source=a" class="dropdown__link">
+                             <i ></i> Khoa cấp cứu
+                          </a>                          
+                       </li>
+
+                       <li>
+                          <a href="/logic_process?source=b" class="dropdown__link">
+                             <i></i> Khoa Nội
+                          </a>
+                       </li>
+
+                       <li>
+                        <a href="/logic_process?source=c" class="dropdown__link">
+                            <i></i> Khoa Ngoại
+                        </a>
+                     </li>
+
+                     <li>
+                        <a href="/logic_process?source=d" class="dropdown__link">
+                            <i></i> Khoa Răng hàm mặt
+                        </a>
+                     </li>
+
+                     <li>
+                        <a href="/logic_process?source=e" class="dropdown__link">
+                            <i></i> Khoa Tim mạch
+                        </a>
+                     </li>
+
+                     <li>
+                        <a href="/logic_process?source=f" class="dropdown__link">
+                            <i></i> Khoa Mắt
+                        </a>
+                     </li>
+
+                    </ul>
+                 </li>
+                 
+                 <li class="dropdown__item">
+                    <div class="nav__link">
+                       Dược phẩm <i class="ri-arrow-down-s-line dropdown__arrow"></i>
+                    </div>
+
+                    <ul class="dropdown__menu">
+                       <li>
+                          <a href="#" class="dropdown__link">
+                             <i ></i> Thuốc uống
+                          </a>                          
+                       </li>
+
+                       <li>
+                          <a href="#" class="dropdown__link">
+                             <i></i> Dụng cụ
+                          </a>
+                       </li>
+                    </ul>
+                 </li>
+
+                 <li><a href="#" class="nav__link">Tài Chính</a></li>
+
+                 <!--=============== DROPDOWN 2 ===============-->
+                 <li class="dropdown__item">
+                    <div class="nav__link">
+                       Users <i class="ri-arrow-down-s-line dropdown__arrow"></i>
+                    </div>
+
+                    <ul class="dropdown__menu">
+                       <li>
+                          <a href="#" class="dropdown__link">
+                             <i></i> Dashboard
+                          </a>                          
+                       </li>
+
+                       <li>
+                          <a href="/logout" class="dropdown__link">
+                             <i></i> Log Out
+                          </a>
+                       </li>
+                    </ul>
+                 </li>
+
+              </ul>
+           </div>
+        </nav>
+     </header>
+    <!--Nav end-->
+
+    <h1>Nhập liệu thông tin bệnh nhân</h1>
+
+
+
+    <script src="/static/main.js"></script>
+
+</body>
+</html>
+<!-- Đường link để xuất ảnh từ firebase: https://www.youtube.com/watch?v=I9BBGulrOmo&ab_channel=Cairocoders -->
+
+
+
