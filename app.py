@@ -66,7 +66,7 @@ def process_logic():
         source = request.args.get('source')
         if source == "a":
             nhan_vien = db.child("users").get()
-            return render_template("test.html", nhan_vien=nhan_vien)
+            return render_template("doctor.html", nhan_vien=nhan_vien)
     else:
         return redirect(url_for('welcome'))
     
