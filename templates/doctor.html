@@ -11,10 +11,12 @@
   <h1>Danh sách nhân viên</h1>
   <ul>
     {% for nhan_vien in nhan_vien.each() %}
-      <li>
-        <strong>Tên:</strong> {{ nhan_vien.val()['name'] }}<br>
-        <strong>Email:</strong> {{ nhan_vien.val()['email'] }}<br>
-      </li>
+      {% if nhan_vien.val()['Ten']%}
+          <li>
+              <strong>Tên:</strong> {{ nhan_vien.val()['Ten'] }}<br>
+              <strong>Tuổi:</strong> {{ nhan_vien.val()['Tuoi'] }}<br>
+          </li>
+      {% endif %}
     {% endfor %}
   </ul>
 </body>

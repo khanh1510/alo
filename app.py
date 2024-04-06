@@ -65,7 +65,7 @@ def process_logic():
     if person["is_logged_in"] == True:
         source = request.args.get('source')
         if source == "a":
-            nhan_vien = db.child("users").get()
+            nhan_vien = db.child("Khoa").child("Da").get()
             return render_template("doctor.html", nhan_vien=nhan_vien)
     else:
         return redirect(url_for('welcome'))
