@@ -83,7 +83,7 @@ body {
 }
 
 .header {
-    position: fixed;
+    /* position: fixed; */
     top: 0;
     left: 0;
     width: 100%;
@@ -98,6 +98,7 @@ body {
 }
 
 /* NAV Bar time============================================= */
+
 
 .nav {
 height: var(--header-height);

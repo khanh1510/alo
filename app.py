@@ -58,9 +58,15 @@ def logout():
     person["name"] = ""
     return redirect(url_for('welcome'))
 
-
+@app.route("/dashboard")
+def dashboard():
+    if person["is_logged_in"] == True:
+        return render_template("dashboard.html")
+    else:
+        return redirect(url_for('welcome'))
+    
 #Xu li de in ra ket qua cua nhan vien y bac si
-@app.route("/logic_process")
+@app.route("/doctor")
 def process_logic():
     if person["is_logged_in"] == True:
         source = request.args.get('source')
@@ -81,6 +87,47 @@ def process_logic():
     else:
         return redirect(url_for('welcome'))
     
+@app.route("/fiancial")
+def fiancial():
+    if person["is_logged_in"] == True:
+        return render_template("fiancial.html")
+    else:
+        return redirect(url_for('welcome'))
+    
+@app.route("/med/medicine_drink")
+def medicine_drink():
+    if person["is_logged_in"] == True:
+        return render_template("medicine_drink.html")
+    else:
+        return redirect(url_for('welcome'))
+    
+@app.route("/med/medicine_tool")
+def medicine_tool():
+    if person["is_logged_in"] == True:
+        return render_template("medicine_tool.html")
+    else:
+        return redirect(url_for('welcome'))
+    
+@app.route("/patient/patient_input")
+def patient_input():
+    if person["is_logged_in"] == True:
+        return render_template("patient_input.html")
+    else:
+        return redirect(url_for('welcome'))
+    
+@app.route("/patient/patient_noi")
+def patient_noi():
+    if person["is_logged_in"] == True:
+        return render_template("patient_noi.html")
+    else:
+        return redirect(url_for('welcome'))
+    
+@app.route("/patient/patient_ngoai")
+def patient_ngoai():
+    if person["is_logged_in"] == True:
+        return render_template("patient_ngoai.html")
+    else:
+        return redirect(url_for('welcome'))
 
     
 #Xu li viec dang nhap co thanh cong hay khong
