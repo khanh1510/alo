@@ -14,3 +14,5 @@ const showMenu = (toggleId, navId) =>{
  showMenu('nav-toggle','nav-menu')
 
 /*=============== SHOW MENU ===============*/
+
+// Ngăn ngừa việc nhập các ký tự không phải số

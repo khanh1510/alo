@@ -146,7 +146,31 @@
      </header>
     <!--Nav end-->
 
-   <h1>ĐÂY LÀ TRANG NHẬP LIỆU THÔNG TIN BỆNH NHÂN</h1>
+   <div class="patient_input">
+      <form action="/patient_logic" method="POST">
+
+         <label for="patient"><strong>Patient</strong></label><br>
+         <select id="patient" name="patient">
+            <option value="noitru">Nội Trú</option>
+            <option value="ngoaitru">Ngoại trú</option>
+          </select>
+          <br>
+
+         <label for="name"><strong>Name</strong></label><br>
+         <input type="text" id="name" name="name"><br>
+
+         <label for="age"><strong>Age</strong></label><br>
+         <input type="number" id="age" name="age"><br>
+
+         <label for="date_in"><strong>Ngay vao vien</strong></label><br>
+         <input type="date" id="date_in" name="date_in"><br>
+
+         <label for="date_out"><strong>Ngay ra vien</strong></label><br>
+         <input type="date" id="date_out" name="date_out"><br><br>
+
+         <input type="submit" value="Submit" class="submit">
+       </form>
+   </div>
 
 
     <script src="/static/main.js"></script>

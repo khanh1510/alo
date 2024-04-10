@@ -113,19 +113,49 @@ def patient_input():
     if person["is_logged_in"] == True:
         return render_template("patient_input.html")
     else:
-        return redirect(url_for('welcome'))
-    
+        return redirect(url_for("welcome"))
+
+#xử lí logic của khi nhấn input dữ liệu bệnh nhân
+@app.route("/patient_logic", methods=["POST", "GET"])
+def patient_logic_input():
+    if request.method == "POST":
+        result = request.form
+
+        type_patient = result["patient"]
+        name = result["name"]
+        age = result["age"]
+        date_in = result["date_in"]
+        date_out = result["date_out"]
+
+        data = {"name": name, "age": age, "date_in": date_in, "date_out": date_out}
+        
+        #Nếu đó là bệnh nhân nội trú
+        if type_patient == "noitru":
+            danhsach = db.child("patient").child("noitru").push(data)
+
+            return redirect(url_for("patient_noi", danhsach=danhsach))
+        #Nếu đó là bệnh nhân ngoại trú
+        else:
+            danhsach = db.child("patient").child("ngoaitru").push(data)
+
+            return redirect(url_for("patient_ngoai", danhsach=danhsach))   
+    else:
+        return render_template("patient_input.html")
+
+
 @app.route("/patient/patient_noi")
 def patient_noi():
     if person["is_logged_in"] == True:
-        return render_template("patient_noi.html")
+        danhsach = db.child("patient").child("noitru").get()
+        return render_template("patient_noi.html", danhsach=danhsach)
     else:
         return redirect(url_for('welcome'))
     
 @app.route("/patient/patient_ngoai")
 def patient_ngoai():
     if person["is_logged_in"] == True:
-        return render_template("patient_ngoai.html")
+        danhsach = db.child("patient").child("ngoaitru").get()
+        return render_template("patient_ngoai.html", danhsach=danhsach)
     else:
         return redirect(url_for('welcome'))
 

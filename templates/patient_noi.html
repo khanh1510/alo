@@ -146,7 +146,19 @@
      </header>
     <!--Nav end-->
 
-   <h1>ĐÂY LÀ TRANG BỆNH NHÂN NỘI TRÚ</h1>
+    <h1>Danh sách bệnh nhân Nội trú</h1>
+    <ul>
+      {% for danh in danhsach.each() %}
+        {% if danh.val()['name']%}
+            <li>
+                <strong>Tên: </strong> {{ danh.val()['name'] }}<br>
+                <strong>Tuổi: </strong> {{ danh.val()['age'] }}<br>
+                <strong>Ngày vào viện: </strong> {{ danh.val()['date_in'] }}<br>
+                <strong>Ngày ra viện: </strong> {{ danh.val()['date_out'] }}<br>
+            </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
 
 
     <script src="/static/main.js"></script>

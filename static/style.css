@@ -383,19 +383,6 @@ img {
     object-fit: cover;
 }
 
-/*........................*/
-
-
-
-/* TEst============================== */
-
-/* Profile image */
-
-/* TEst============================== */
-
-
-
-
 
 /*====================================*/
 .category-btn {
@@ -573,3 +560,92 @@ footer a {
     }
 
 }
+
+
+/* ************************ */
+/* PATIENT INPUT */
+
+.patient_input {
+  padding: 2rem;
+  text-align: center;
+}
+
+input{
+  background-color: #fff;
+  border: 3px solid #5fbae9;
+  height: 3rem;
+  width: 20rem;
+  text-align: center;
+  border-radius: 10px; /* Bo góc */
+  font-weight: 500;
+}
+
+input[type="submit"] {
+  background-color: #5fbae9; /* Màu nền */
+  border: none; /* Loại bỏ viền */
+  color: white; /* Màu chữ */
+  padding: 15px 32px; /* Kích thước nút */
+  text-align: center; /* Căn giữa nội dung */
+  text-decoration: none; /* Loại bỏ gạch chân khi hover */
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 10px; /* Bo góc */
+  transition-duration: 0.4s; /* Hiệu ứng chuyển đổi */
+  line-height: 50%;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="submit"]:hover {
+  background-color: #45a049; /* Màu nền khi hover */
+}
+
+
+/* Định dạng chung cho phần tử <select> */
+select {
+  padding: 15px 32px; /* Kích thước nút */
+  font-size: 16px; /* Kích thước phông chữ */
+  border: 1px solid #ccc; /* Viền */
+  border-radius: 10px; /* Bo góc */
+  background-color: #f8f8f8; /* Màu nền */
+  width: 20rem;
+  text-align: center;
+  font-weight: 500;
+  border: 3px solid #5fbae9;
+}
+
+select option {
+  font-size: 16px; /* Kích thước phông chữ */
+  text-align: center;
+  font-weight: 500;
+}
+
+
+/* Định dạng khi di chuột vào phần tử <select> */
+select:hover {
+  border-color: #888; /* Đổi màu viền khi hover */
+}
+
+/* Định dạng tùy chọn trong <select> */
+select option {
+  padding: 8px 12px; /* Khoảng cách đệm xung quanh */
+  font-size: 16px; /* Kích thước phông chữ */
+  border: 1px solid #ddd; /* Viền dưới */
+}
+
+/* Định dạng tùy chọn khi di chuột vào */
+select option:hover {
+  background-color: #45a049; /* Màu nền khi hover */
+}
+
+
+
+
+
+/* END PATIENT INPUT */
