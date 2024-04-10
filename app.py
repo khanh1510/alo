@@ -58,6 +58,7 @@ def logout():
     person["name"] = ""
     return redirect(url_for('welcome'))
 
+#Dashboard
 @app.route("/dashboard")
 def dashboard():
     if person["is_logged_in"] == True:
@@ -86,21 +87,24 @@ def process_logic():
         return render_template("doctor.html", nhan_vien=nhan_vien)
     else:
         return redirect(url_for('welcome'))
-    
+
+#Fiancial route
 @app.route("/fiancial")
 def fiancial():
     if person["is_logged_in"] == True:
         return render_template("fiancial.html")
     else:
         return redirect(url_for('welcome'))
-    
+
+#THuoc uong route
 @app.route("/med/medicine_drink")
 def medicine_drink():
     if person["is_logged_in"] == True:
         return render_template("medicine_drink.html")
     else:
         return redirect(url_for('welcome'))
-    
+
+#Dung cu route
 @app.route("/med/medicine_tool")
 def medicine_tool():
     if person["is_logged_in"] == True:
@@ -108,12 +112,14 @@ def medicine_tool():
     else:
         return redirect(url_for('welcome'))
     
+#Dieu huong trang nhap du lieu benh nhan
 @app.route("/patient/patient_input")
 def patient_input():
     if person["is_logged_in"] == True:
         return render_template("patient_input.html")
     else:
         return redirect(url_for("welcome"))
+    
 
 #xử lí logic của khi nhấn input dữ liệu bệnh nhân
 @app.route("/patient_logic", methods=["POST", "GET"])
@@ -142,7 +148,24 @@ def patient_logic_input():
     else:
         return render_template("patient_input.html")
 
+#THông tin chi tiết về bệnh nhân nội trú
+@app.route("/noitru/<string:id>")
+def route_handler_noi(id):
+  # Lấy dữ liệu dựa trên id
+  item = db.child('patient').child('noitru').child(id).get()
 
+  return render_template("patient_x_noitru.html", item=item)
+
+#THông tin chi tiết về bệnh nhân ngoại trú
+@app.route("/ngoaitru/<string:id>")
+def route_handler_ngoai(id):
+  # Lấy dữ liệu dựa trên id
+  item = db.child('patient').child('ngoaitru').child(id).get()
+
+  return render_template("patient_x_ngoaitru.html", item=item)
+
+
+#Trang hien ra benh nhan noi tru
 @app.route("/patient/patient_noi")
 def patient_noi():
     if person["is_logged_in"] == True:
@@ -151,6 +174,7 @@ def patient_noi():
     else:
         return redirect(url_for('welcome'))
     
+#Trang hien ra benh nhan ngoai tru
 @app.route("/patient/patient_ngoai")
 def patient_ngoai():
     if person["is_logged_in"] == True:

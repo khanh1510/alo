@@ -146,14 +146,16 @@
      </header>
     <!--Nav end-->
 
-    <h1>Danh sách bệnh nhân Nội trú</h1>
+    <h1>Chi tiết về bệnh nhân</h1>
     <ul>
-      {% for danh in danhsach.each() %}
-        {% if danh.val()['name']%}
-        <a href="/noitru/{{ danh.key() }}">{{ danh.val()['name'] }}</a>
-        <br>
-        {% endif %}
-      {% endfor %}
+
+      <li>
+         <strong>Tên: </strong> {{ item.val()['name'] }}<br>
+         <strong>Tuổi: </strong> {{ item.val()['age'] }}<br>
+         <strong>Ngày vào viện: </strong> {{ item.val()['date_in'] }}<br>
+         <strong>Ngày ra viện: </strong> {{ item.val()['date_out'] }}<br>
+      </li>
+
     </ul>
 
 

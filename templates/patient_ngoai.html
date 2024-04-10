@@ -150,14 +150,8 @@
     <ul>
       {% for danh in danhsach.each() %}
         {% if danh.val()['name']%}
-            <li>
-                <strong>Tên: </strong> {{ danh.val()['name'] }}<br>
-                <strong>Tuổi: </strong> {{ danh.val()['age'] }}<br>
-                <strong>Ngày vào viện: </strong> {{ danh.val()['date_in'] }}<br>
-                <strong>Ngày ra viện: </strong> {{ danh.val()['date_out'] }}<br>
-            </li>
-            <br>
-            <br>
+         <a href="/ngoaitru/{{ danh.key() }}">{{ danh.val()['name'] }}</a>
+         <br>
         {% endif %}
       {% endfor %}
     </ul>
