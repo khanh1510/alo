@@ -649,3 +649,23 @@ select option:hover {
 
 
 /* END PATIENT INPUT */
+
+.new_container {
+  padding: 3rem;
+
+}
+
+button {
+  cursor: pointer;
+  background-color: #888;
+  padding: 1rem;
+  margin-top: 2rem;
+}
+
+.test {
+  display: inline;
+}
+
+.medication {
+  margin: 1rem 0;
+}

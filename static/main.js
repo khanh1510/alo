@@ -16,3 +16,19 @@ const showMenu = (toggleId, navId) =>{
 /*=============== SHOW MENU ===============*/
 
 // Ngăn ngừa việc nhập các ký tự không phải số
+
+
+const searchInput = document.getElementById('search-input');
+
+searchInput.addEventListener('keyup', (event) => {
+  const query = event.target.value;
+
+  // Truy vấn dữ liệu từ Firebase
+  firebase.database().ref('your_data_path').orderByChild('name').equalTo(query).once('value', (snapshot) => {
+    // Xử lý kết quả truy vấn
+    const results = snapshot.val();
+
+    // Hiển thị kết quả lên giao diện
+    // ...
+  });
+});

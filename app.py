@@ -156,6 +156,25 @@ def route_handler_noi(id):
 
   return render_template("patient_x_noitru.html", item=item)
 
+@app.route('/submit_prescription', methods=['POST'])
+def submit_prescription():
+    patient_name = request.form['patient_name']
+    medications = request.form.getlist('medication[]')
+    quantities = request.form.getlist('quantity[]')
+    
+    # Lưu dữ liệu vào Firebase
+    prescriptions_ref = db.child("test")
+    
+    for medication, quantity in zip(medications, quantities):
+        prescriptions_ref.push({    
+            'patient_name': patient_name,
+            'medication': medication,
+            'quantity': quantity
+        })
+    
+    return 'Đã lưu đơn thuốc thành công!'
+
+
 #THông tin chi tiết về bệnh nhân ngoại trú
 @app.route("/ngoaitru/<string:id>")
 def route_handler_ngoai(id):
@@ -258,4 +277,4 @@ def add_nocache_headers(response):
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run()   
