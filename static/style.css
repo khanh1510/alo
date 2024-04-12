@@ -669,3 +669,19 @@ button {
 .medication {
   margin: 1rem 0;
 }
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 3rem;
+}
+th {
+  background-color: #f0f0f0;
+  text-align: center;
+  padding: 10px;
+}
+td {
+  padding: 5px;
+  border: 1px solid #ddd;
+  text-align: center;
+}

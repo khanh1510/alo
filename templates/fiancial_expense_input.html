@@ -164,15 +164,21 @@
      </header>
     <!--Nav end-->
 
-    <h1>Danh sách bệnh nhân Nội trú</h1>
-    <ul>
-      {% for danh in danhsach.each() %}
-        {% if danh.val()['name']%}
-        <a href="/noitru/{{ danh.key() }}">{{ danh.val()['name'] }}</a>
-        <br>
-        {% endif %}
-      {% endfor %}
-    </ul>
+    <div class="patient_input">
+        <form action="/expense_logic" method="POST">
+  
+           <label for="name"><strong>Name</strong></label><br>
+           <input type="text" id="name" name="name"><br>
+  
+           <label for="price"><strong>Price</strong></label><br>
+           <input type="number" id="price" name="price"><br>
+  
+           <label for="date"><strong>Ngay</strong></label><br>
+           <input type="date" id="date" name="date"><br>
+  
+           <input type="submit" value="Submit" class="submit">
+         </form>
+     </div>
 
 
     <script src="/static/main.js"></script>

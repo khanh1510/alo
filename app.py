@@ -1,5 +1,7 @@
 import pyrebase
 from flask import Flask, flash, redirect, render_template, request, session, abort, url_for
+import datetime
+import json
 
 app = Flask(__name__)
 
@@ -154,14 +156,6 @@ def add_nocache_headers(response):
 def dashboard():
     if person["is_logged_in"] == True:
         return render_template("dashboard.html")
-    else:
-        return redirect(url_for('welcome'))
-    
-#Fiancial route
-@app.route("/fiancial")
-def fiancial():
-    if person["is_logged_in"] == True:
-        return render_template("fiancial.html")
     else:
         return redirect(url_for('welcome'))
 #/////////////////////////////////////////////////////
@@ -319,8 +313,131 @@ def patient_ngoai():
 
     
 
+#XỬ LÍ LIÊN QUAN ĐẾN TÀI CHÍNH
+#\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+#Fiancial route
+@app.route("/fiancial/expense")
+def fiancial_expense():
+    if person["is_logged_in"] == True:
+        danhsach = db.child("fiancial").child("expense").get()
+        # Chuyển đổi JSON thành từ điển
+
+        # Trích xuất dữ liệu và biến thành danh sách các dòng
+        # Trích xuất dữ liệu và biến thành danh sách các dòng
+        rows = []
+        for year in danhsach.each():
+            year_data = year.val()
+            for month in year_data:
+                month_data = year_data[month]
+                for day in month_data:
+                    day_data = month_data[day]
+                    for key, item in day_data.items():
+                        rows.append({
+                            'date': item['date'],
+                            'name': item['name'],
+                            'price': item['price']
+                        })
+        return render_template("fiancial_expense.html", rows=rows)
+    else:
+        return redirect(url_for('welcome'))
+    
+@app.route("/fiancial/income")
+def fiancial_income():
+    if person["is_logged_in"] == True:
+        danhsach = db.child("fiancial").child("income").get()
+        # Chuyển đổi JSON thành từ điển
+
+        # Trích xuất dữ liệu và biến thành danh sách các dòng
+        # Trích xuất dữ liệu và biến thành danh sách các dòng
+        rows = []
+        for year in danhsach.each():
+            year_data = year.val()
+            for month in year_data:
+                month_data = year_data[month]
+                for day in month_data:
+                    day_data = month_data[day]
+                    for key, item in day_data.items():
+                        rows.append({
+                            'date': item['date'],
+                            'name': item['name'],
+                            'price': item['price']
+                        })
+        return render_template("fiancial_income.html", rows=rows)
+    else:
+        return redirect(url_for('welcome'))
+    
+@app.route("/fiancial/expense_input")
+def expense_input():
+    if person["is_logged_in"] == True:
+        return render_template("fiancial_expense_input.html")
+    else:
+        return redirect(url_for("welcome"))
 
 
+@app.route("/fiancial/income_input")
+def income_input():
+    if person["is_logged_in"] == True:
+        return render_template("fiancial_income_input.html")
+    else:
+        return redirect(url_for("welcome"))
+
+#xử lí logic của khi nhấn input dữ liệu bệnh nhân
+@app.route("/expense_logic", methods=["POST", "GET"])
+def expense_logic_input():
+    if request.method == "POST":
+        result = request.form
+
+        name = result["name"]
+        date = result["date"]
+        price = result["price"]
+
+        date_time_now = datetime.datetime.now()
+
+        # Lấy năm từ ngày và giờ hiện tại và chuyển thành string
+        year = str(date_time_now.year)
+        month = str(date_time_now.month)
+        day = str(date_time_now.day)
+
+
+        data = {"name": name, "date": date, "price": price}
+
+        db.child("fiancial").child("expense").child(year).child(month).child(day).push(data)
+
+        # Render template với dữ liệu từ Firebase
+        return redirect(url_for('fiancial_expense'))
+            
+    else:
+        return render_template("fiancial_expense.html")
+    
+
+
+#xử lí logic của khi nhấn input dữ liệu bệnh nhân
+@app.route("/income_logic", methods=["POST", "GET"])
+def income_logic_input():
+    if request.method == "POST":
+        result = request.form
+
+        name = result["name"]
+        date = result["date"]
+        price = result["price"]
+
+        date_time_now = datetime.datetime.now()
+
+        # Lấy năm từ ngày và giờ hiện tại và chuyển thành string
+        year = str(date_time_now.year)
+        month = str(date_time_now.month)
+        day = str(date_time_now.day)
+
+
+        data = {"name": name, "date": date, "price": price}
+
+        db.child("fiancial").child("income").child(year).child(month).child(day).push(data)
+
+        # Render template với dữ liệu từ Firebase
+        return redirect(url_for('fiancial_income'))
+    else:
+        return render_template("fiancial_income.html")
+#\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
 
 
