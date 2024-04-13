@@ -228,19 +228,53 @@ def doctor_input_logic():
 
 #XỬ LÍ LIÊN QUAN ĐẾN THUỐC THANG
 #\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+@app.route("/med/med_input")
+def med_input():
+    if person["is_logged_in"] == True:
+        return render_template("medicine_input.html")
+    else:
+        return redirect(url_for('welcome'))
+
+
+@app.route("/med_logic", methods=["POST", "GET"])
+def med_logic_input():
+    if request.method == "POST":
+        result = request.form
+
+        med = str(result["med"]).strip()
+        name = result["name"]
+        name_supply = result["name_supply"]
+        num = result["num"]
+        date = result["date"]
+
+        data = {"name": name, "name_supply": name_supply, "num": num, "date": date}
+        
+        if med == "med_drink":
+            db.child("medicine").child(med).push(data)
+        else:
+            db.child("medicine").child(med).push(data)
+
+        return redirect(url_for("med_input"))
+    else:
+        return render_template("medicine_input.html")
+
+
+
 #THuoc uong route
-@app.route("/med/medicine_drink")
+@app.route("/med/med_drink")
 def medicine_drink():
     if person["is_logged_in"] == True:
-        return render_template("medicine_drink.html")
+        rows = db.child("medicine").child("med_drink").get()
+        return render_template("medicine_drink.html", rows=rows)
     else:
         return redirect(url_for('welcome'))
 
 #Dung cu route
-@app.route("/med/medicine_tool")
+@app.route("/med/med_tool")
 def medicine_tool():
     if person["is_logged_in"] == True:
-        return render_template("medicine_tool.html")
+        rows = db.child("medicine").child("tool").get()
+        return render_template("medicine_tool.html", rows=rows)
     else:
         return redirect(url_for('welcome'))
 #\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\

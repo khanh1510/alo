@@ -104,13 +104,13 @@
 
                     <ul class="dropdown__menu">
                        <li>
-                          <a href="/med/medicine_drink" class="dropdown__link">
+                          <a href="/med/med_drink" class="dropdown__link">
                              <i ></i> Thuốc uống
                           </a>                          
                        </li>
 
                        <li>
-                          <a href="/med/medicine_tool" class="dropdown__link">
+                          <a href="/med/med_tool" class="dropdown__link">
                              <i></i> Dụng cụ
                           </a>
                        </li>
@@ -164,7 +164,35 @@
      </header>
     <!--Nav end-->
 
-   <h1>ĐÂY LÀ TRANG THUỐC ÚN</h1>
+    <section class="income-list">
+      <h2>Danh sách</h2>
+      <table>
+         <thead>
+            <tr>
+               <th>Name</th>
+               <th>Name_supply</th>
+               <th>Num</th>
+               <th>Price</th>
+            </tr>
+         </thead>
+         <tbody>
+            {% for row in rows.each() %}
+            <tr>
+                <td>{{ row.val()['name'] }}</td>
+                <td>{{ row.val()['name_supply'] }}</td>
+                <td>{{ row.val()['num'] }}</td>
+                <td>{{ row.val()['date'] }}</td>
+            </tr>
+            {% endfor %}
+         </tbody>
+      </table>
+   </section>
+
+   <form action="/med/med_input">
+      <button>
+         THÊM
+      </button>
+   </form>
 
 
     <script src="/static/main.js"></script>
