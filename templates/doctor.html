@@ -165,16 +165,23 @@
     <!--Nav end-->
 
     <h1>Danh sách nhân viên</h1>
+    {{ nhan_vien.val() }}
     <ul>
       {% for nhan_vien in nhan_vien.each() %}
-        {% if nhan_vien.val()['Ten']%}
+        {% if nhan_vien.val()['name']%}
             <li>
-                <strong>Tên:</strong> {{ nhan_vien.val()['Ten'] }}<br>
-                <strong>Tuổi:</strong> {{ nhan_vien.val()['Tuoi'] }}<br>
+                <strong>Tên:</strong> {{ nhan_vien.val()['name'] }}<br>
+                <strong>Email:</strong> {{ nhan_vien.val()['email'] }}<br>
             </li>
         {% endif %}
       {% endfor %}
     </ul>
+
+    <form action="/doctor_input">
+      <button>
+         THÊM
+      </button>
+   </form>
 
     <script src="/static/main.js"></script>
 

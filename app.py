@@ -187,6 +187,39 @@ def process_logic():
         return render_template("doctor.html", nhan_vien=nhan_vien)
     else:
         return redirect(url_for('welcome'))
+    
+@app.route("/doctor_input")
+def doctor_input():
+    if person["is_logged_in"] == True:
+        cackhoa = db.child("Khoa").get()
+        return render_template("doctor_input.html", cackhoa=cackhoa)
+    else:
+        return redirect(url_for("welcome"))
+
+@app.route("/doctor_input_logic", methods=['POST', 'GET'])
+def doctor_input_logic():
+    if request.method == "POST":
+        result = request.form
+
+        name = result["name"]
+        gender = result["gender"]
+        date_birth = result["date_birth"]
+        phone_number = result["phone_number"]
+        email = result["email"]
+        khoa = str(result["khoa"]).strip()
+        date_join = result["date_join"]
+
+
+        data = {"name": name, "gender": gender,
+                 "date_birth": date_birth, "phone_number": phone_number,
+                   "email": email, "date_join": date_join}
+
+        db.child("Khoa").child(khoa).push(data)
+
+        # Render template với dữ liệu từ Firebase
+        return redirect(url_for('doctor_input'))
+    else:
+        return redirect(url_for('welcome'))
 #/////////////////////////////////////////////////////
 
 

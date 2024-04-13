@@ -565,7 +565,7 @@ footer a {
 /* ************************ */
 /* PATIENT INPUT */
 
-.patient_input {
+.patient_input, .doctor_input {
   padding: 2rem;
   text-align: center;
 }
@@ -670,18 +670,39 @@ button {
   margin: 1rem 0;
 }
 
-table {
+.income-list {
+  margin-top: 20px;
+}
+
+.income, .expenses {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.income-list h2 {
+  font-size: 24px;
+  color: #333;
+}
+
+.income-list table {
+  width: 50%;
   border-collapse: collapse;
-  width: 100%;
-  margin: 3rem;
+  margin-top: 10px;
 }
-th {
-  background-color: #f0f0f0;
-  text-align: center;
+
+.income-list th,
+.income-list td {
   padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
 }
-td {
-  padding: 5px;
-  border: 1px solid #ddd;
-  text-align: center;
+
+.income-list th {
+  background-color: #f2f2f2;
+  color: #333;
+}
+
+.income-list tbody tr:hover {
+  background-color: #f5f5f5;
 }
