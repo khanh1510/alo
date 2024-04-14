@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>BK Hospital</title>
+
+    <link rel="icon" href="/static/logo.png">
 
     <link rel="stylesheet" href="/static/style.css">
 
@@ -124,13 +126,13 @@
 
                   <ul class="dropdown__menu">
                      <li>
-                        <a href="" class="dropdown__link">
+                        <a href="/fiancial/income" class="dropdown__link">
                            <i ></i> Thu nhập
                         </a>                          
                      </li>
 
                      <li>
-                        <a href="" class="dropdown__link">
+                        <a href="/fiancial/expense" class="dropdown__link">
                            <i></i> Chi phí
                         </a>
                      </li>
@@ -165,6 +167,7 @@
     <!--Nav end-->
 
     <section class="income-list">
+      <h1>Tổng số thuốc {{ num1 }}</h1>
       <h2>Danh sách</h2>
       <table>
          <thead>
@@ -177,6 +180,31 @@
          </thead>
          <tbody>
             {% for row in rows.each() %}
+            <tr>
+                <td>{{ row.val()['name'] }}</td>
+                <td>{{ row.val()['name_supply'] }}</td>
+                <td>{{ row.val()['num'] }}</td>
+                <td>{{ row.val()['date'] }}</td>
+            </tr>
+            {% endfor %}
+         </tbody>
+      </table>
+   </section>
+
+   <section class="income-list">
+      <h1>Tổng số thiết bị {{ num2 }}</h1>
+      <h2>Danh sách</h2>
+      <table>
+         <thead>
+            <tr>
+               <th>Name</th>
+               <th>Name_supply</th>
+               <th>Num</th>
+               <th>Price</th>
+            </tr>
+         </thead>
+         <tbody>
+            {% for row in rows2.each() %}
             <tr>
                 <td>{{ row.val()['name'] }}</td>
                 <td>{{ row.val()['name_supply'] }}</td>

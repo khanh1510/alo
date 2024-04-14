@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>BK Hospital</title>
+
+    <link rel="icon" href="/static/logo.png">
 
     <link rel="stylesheet" href="/static/style.css">
 
@@ -124,13 +126,13 @@
 
                   <ul class="dropdown__menu">
                      <li>
-                        <a href="" class="dropdown__link">
+                        <a href="/fiancial/income" class="dropdown__link">
                            <i ></i> Thu nhập
                         </a>                          
                      </li>
 
                      <li>
-                        <a href="" class="dropdown__link">
+                        <a href="/fiancial/expense" class="dropdown__link">
                            <i></i> Chi phí
                         </a>
                      </li>
@@ -167,7 +169,9 @@
    <div class="patient_input">
       <form action="/patient_logic" method="POST">
 
-         <label for="patient"><strong>Patient</strong></label><br>
+         <label for="patient"><strong>Thêm Bệnh nhân</strong></label><br>
+
+         <label for="patient"><strong>Loại bệnh nhân</strong></label><br>
          <select id="patient" name="patient">
             <option value="noitru">Nội Trú</option>
             <option value="ngoaitru">Ngoại trú</option>
@@ -180,16 +184,28 @@
          <label for="age"><strong>Age</strong></label><br>
          <input type="number" id="age" name="age"><br>
 
+         <label for="date_birth"><strong>Ngày tháng năm sinh</strong></label><br>
+         <input type="date" id="date_birth" name="date_birth"><br>
+
+         <label for="phone_number"><strong>SĐT</strong></label><br>
+         <input type="number" id="phone_number" name="phone_number"><br>
+
+         <label for="khoa"><strong>Khoa khám</strong></label><br>
+         <select id="khoa" name="khoa">
+               {% for danh in cackhoa %}
+                  <option value=" {{danh.key()}} ">{{ danh.key() }}</option>
+               {% endfor %}    
+         </select><br>
+
          <label for="date_in"><strong>Ngay vao vien</strong></label><br>
          <input type="date" id="date_in" name="date_in"><br>
 
-         <label for="date_out"><strong>Ngay ra vien</strong></label><br>
-         <input type="date" id="date_out" name="date_out"><br><br>
+         <label for="chandoan"><strong>Chẩn đoán</strong></label><br>
+         <input type="text" id="chandoan" name="chandoan"><br>
 
          <input type="submit" value="Submit" class="submit">
        </form>
    </div>
-
 
     <script src="/static/main.js"></script>
 

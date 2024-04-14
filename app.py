@@ -265,7 +265,23 @@ def med_logic_input():
 def medicine_drink():
     if person["is_logged_in"] == True:
         rows = db.child("medicine").child("med_drink").get()
-        return render_template("medicine_drink.html", rows=rows)
+        rows2 = db.child("medicine").child("med_tool").get()
+
+        
+        data1 = db.child("medicine").child("med_drink").get().val() 
+        data2 = db.child("medicine").child("med_tool").get().val()  
+
+        total1 = 0
+        if data1 is not None:  # Check if data exists
+            for item in data1.values():
+                total1 += int(item["num"])
+
+        total2 = 0
+        if data2 is not None:  # Check if data exists
+            for item in data2.values():
+                total2 += int(item["num"])
+
+        return render_template("medicine_drink.html", rows=rows, rows2=rows2, num1=total1, num2 = total2)
     else:
         return redirect(url_for('welcome'))
 
@@ -273,7 +289,7 @@ def medicine_drink():
 @app.route("/med/med_tool")
 def medicine_tool():
     if person["is_logged_in"] == True:
-        rows = db.child("medicine").child("tool").get()
+        rows = db.child("medicine").child("med_tool").get()
         return render_template("medicine_tool.html", rows=rows)
     else:
         return redirect(url_for('welcome'))
@@ -288,7 +304,8 @@ def medicine_tool():
 @app.route("/patient/patient_input")
 def patient_input():
     if person["is_logged_in"] == True:
-        return render_template("patient_input.html")
+        cackhoa = db.child("Khoa").get()
+        return render_template("patient_input.html", cackhoa=cackhoa)
     else:
         return redirect(url_for("welcome"))
     
