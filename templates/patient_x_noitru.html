@@ -167,65 +167,76 @@
     <!--Nav end-->
 
    <div class="new_container">
-      <h1>Chi tiết về bệnh nhân</h1>
+      <h1>Chi tiết về bệnh nhân nội trú</h1>
       <ul>
-  
         <li>
            <strong>Tên: </strong> {{ item.val()['name'] }}<br>
            <strong>Tuổi: </strong> {{ item.val()['age'] }}<br>
+           <strong>SDT: </strong> {{ item.val()['phone_number'] }}<br>
+           <strong>Ngày sinh: </strong> {{ item.val()['date_birth'] }}<br>
            <strong>Ngày vào viện: </strong> {{ item.val()['date_in'] }}<br>
-           <strong>Ngày ra viện: </strong> {{ item.val()['date_out'] }}<br>
+           <strong>Khoa khám: </strong> {{ item.val()['khoa'] }}<br>
+           <strong>Bác sĩ chẩn đoán: </strong> {{ item.val()['chandoan'] }}<br>
         </li>
-  
       </ul>
-  
-      <h1>Cấp phát thuốc</h1>
-      <form id="prescription_form" action="/submit_prescription" method="POST">
-         <label for="patient_name">Tên bệnh nhân:</label>
-         <input type="text" id="patient_name" name="patient_name"><br><br>
-         
-         <div id="medications">
-             <div class="medication_entry">
-                 <label for="medication">Thuốc:</label>
-                 <select name="medication[]">
-                     <option value="Medication 1">Thuốc 1</option>
-                     <option value="Medication 2">Thuốc 2</option>
-                     <!-- Thêm các option khác từ Firebase -->
-                 </select>
-                 
-                 <label for="quantity">Số lượng:</label>
-                 <input type="number" name="quantity[]" min="1" value="1">
-             </div>
-         </div>
-         
-         <input type="button" value="Thêm thuốc" onclick="addMedication()">
-         <input type="submit" value="Gửi đơn thuốc">
-     </form>
-     
-     <script>
-     function addMedication() {
-         var medication_entry = document.createElement("div");
-         medication_entry.innerHTML = `
-             <label for="medication">Thuốc:</label>
-             <select name="medication[]">
-                 <option value="Medication 1">Thuốc 1</option>
-                 <option value="Medication 2">Thuốc 2</option>
-                 <!-- Thêm các option khác từ Firebase -->
-             </select>
-             
-             <label for="quantity">Số lượng:</label>
-             <input type="number" name="quantity[]" min="1" value="1">
-         `;
-         document.getElementById("medications").appendChild(medication_entry);
-     }
-     </script>
-     
-  
-  
-      <script src="/static/main.js"></script>
+
+      <div class="xetnghiem">
+         <button >
+            <a href="/xetnghiem/{{ id }}"> Thêm xét nghiệm
+         </button>
+         <h2>Xet nghiem</h2>
+         <table>
+            <thead>
+               <tr>
+                  <th>Report Type</th>
+                  <th>Date</th>
+                  <th>Description</th>
+               </tr>
+            </thead>
+            <tbody>
+               {% if rows.val() %}
+                  {% for row in rows.each() %}
+                  <tr>
+                     <td>{{ row.val()["name"] }}</td>
+                     <td>{{ row.val()["date"] }}</td>
+                     <td>{{ row.val()["ketqua"] }}</td>
+                  </tr>
+                  {% endfor %}
+               {% endif %}
+               
+            </tbody>
+         </table>
+      </div>
+
+      <div class="donthuoc">
+         <button >
+            <a href="/add_med/{{ id }}"> Thêm thuốc
+         </button>
+         <h2>Danh sách thuốc</h2>
+         <table>
+            <thead>
+               <tr>
+                  <th>Tên thuốc</th>
+                  <th>Số lượng</th>
+               </tr>
+            </thead>
+            <tbody>
+               {% if rows2.val() %}
+                  {% for row2 in rows2.each() %}
+                  <tr>
+                     <td>{{ row2.val()["name"] }}</td>
+                     <td>{{ row2.val()["soluong"] }}</td>
+                  </tr>
+                  {% endfor %}
+               {% endif %}
+               
+            </tbody>
+         </table>
+   
+      </div>
    </div>
 
-   
+   <script src="/static/main.js"></script>
 
 </body>
 </html>

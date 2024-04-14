@@ -319,10 +319,17 @@ def patient_logic_input():
         type_patient = result["patient"]
         name = result["name"]
         age = result["age"]
+        date_birth = result["date_birth"]
+        phone_number = result["phone_number"]
+        khoa = result["khoa"]
         date_in = result["date_in"]
-        date_out = result["date_out"]
+        chandoan = result["chandoan"]
+        giuong = result["giuong"]
 
-        data = {"name": name, "age": age, "date_in": date_in, "date_out": date_out}
+        data = {"name": name, "age": age,
+                "date_birth": date_birth, "phone_number": phone_number,
+                "khoa": khoa, "date_in": date_in, "chandoan": chandoan,
+                "giuong": giuong}
         
         #Nếu đó là bệnh nhân nội trú
         if type_patient == "noitru":
@@ -336,41 +343,20 @@ def patient_logic_input():
             return redirect(url_for("patient_ngoai", danhsach=danhsach))   
     else:
         return render_template("patient_input.html")
-
+    
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#BỆNH NHÂN NỘI TRÚ
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #THông tin chi tiết về bệnh nhân nội trú
 @app.route("/noitru/<string:id>")
 def route_handler_noi(id):
   # Lấy dữ liệu dựa trên id
-  item = db.child('patient').child('noitru').child(id).get()
-
-  return render_template("patient_x_noitru.html", item=item)
-
-@app.route('/submit_prescription', methods=['POST'])
-def submit_prescription():
-    patient_name = request.form['patient_name']
-    medications = request.form.getlist('medication[]')
-    quantities = request.form.getlist('quantity[]')
-    
-    # Lưu dữ liệu vào Firebase
-    prescriptions_ref = db.child("test")
-    
-    for medication, quantity in zip(medications, quantities):
-        prescriptions_ref.push({    
-            'patient_name': patient_name,
-            'medication': medication,
-            'quantity': quantity
-        })
-    
-    return 'Đã lưu đơn thuốc thành công!'
+    item = db.child('patient').child('noitru').child(id).get()
+    rows = db.child("patient").child("noitru").child(id).child("xetnghiem").get()
+    rows2 = db.child("patient").child("noitru").child(id).child("add_med").get()
 
 
-#THông tin chi tiết về bệnh nhân ngoại trú
-@app.route("/ngoaitru/<string:id>")
-def route_handler_ngoai(id):
-  # Lấy dữ liệu dựa trên id
-  item = db.child('patient').child('ngoaitru').child(id).get()
-
-  return render_template("patient_x_ngoaitru.html", item=item)
+    return render_template("patient_x_noitru.html", item=item, id=id, rows=rows, rows2=rows2)
 
 
 #Trang hien ra benh nhan noi tru
@@ -382,7 +368,21 @@ def patient_noi():
     else:
         return redirect(url_for('welcome'))
     
-#Trang hien ra benh nhan ngoai tru
+
+
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#BỆNH NHÂN NGOẠI TRÚ
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#THông tin chi tiết về bệnh nhân ngoại trú
+@app.route("/ngoaitru/<string:id>")
+def route_handler_ngoai(id):
+    # Lấy dữ liệu dựa trên id
+    item = db.child('patient').child('ngoaitru').child(id).get()
+    rows = db.child("patient").child("ngoaitru").child(id).child("xetnghiem").get()
+    rows2 = db.child("patient").child("ngoaitru").child(id).child("add_med").get()
+
+    return render_template("patient_x_ngoaitru.html", item=item, id=id, rows=rows, rows2=rows2)
+
 @app.route("/patient/patient_ngoai")
 def patient_ngoai():
     if person["is_logged_in"] == True:
@@ -390,12 +390,105 @@ def patient_ngoai():
         return render_template("patient_ngoai.html", danhsach=danhsach)
     else:
         return redirect(url_for('welcome'))
-#\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
 
 
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#XÉT NGHIỆM
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+@app.route("/xetnghiem/<string:id>")
+def xet_nghiem(id):
+  # Lấy dữ liệu dựa trên id
+    if person["is_logged_in"] == True:
+        
+        return render_template("xetnghiem_input.html", id=id)
+    else:
+        return redirect(url_for('welcome'))
 
+
+@app.route("/xetnghiem_logic/<string:id>", methods=["POST", "GET"])
+def xet_nghiem_logic(id):
+  # Lấy dữ liệu dựa trên id
+    if request.method == "POST":
+        result = request.form
+
+        name = result["name"]
+        date = result["date"]
+        ketqua = result["ketqua"]
+        patient = str(result["patient"]).strip()
+
+
+        data = {"name": name, "date": date, "ketqua": ketqua}
+        
+        #Nếu đó là bệnh nhân nội trú
+        if patient == "noitru":
+            danhsach = db.child("patient").child("noitru").child(id).child("xetnghiem").push(data)
+
+            return redirect(url_for("patient_noi"))
+        #Nếu đó là bệnh nhân ngoại trú
+        else:
+            danhsach = db.child("patient").child("ngoaitru").child(id).child("xetnghiem").push(data)
+
+            return redirect(url_for("patient_ngoai")) 
+    else:
+        return redirect(url_for('welcome'))
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#THÊM THUỐC
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+@app.route("/add_med/<string:id>")
+def add_med(id):
+  # Lấy dữ liệu dựa trên id
+    if person["is_logged_in"] == True:
+
+        return render_template("patient_med_in.html", id=id)
+    else:
+        return redirect(url_for('welcome'))
     
+
+@app.route("/patient_med_logic/<string:id>", methods=["POST", "GET"])
+def patient_med_logic(id):
+  # Lấy dữ liệu dựa trên id
+    if request.method == "POST":
+        result = request.form
+
+        name = result["name"]
+        soluong = result["soluong"]
+        patient = str(result["patient"]).strip()
+
+
+        data = {"name": name, "soluong": soluong}
+        
+        #Nếu đó là bệnh nhân nội trú
+        if patient == "noitru":
+            danhsach = db.child("patient").child("noitru").child(id).child("add_med").push(data)
+
+            return redirect(url_for("patient_noi"))
+        #Nếu đó là bệnh nhân ngoại trú
+        else:
+            danhsach = db.child("patient").child("ngoaitru").child(id).child("add_med").push(data)
+
+            return redirect(url_for("patient_ngoai")) 
+    else:
+        return redirect(url_for('welcome'))
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
 
 #XỬ LÍ LIÊN QUAN ĐẾN TÀI CHÍNH
 #\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
