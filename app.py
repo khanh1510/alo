@@ -463,35 +463,168 @@ def patient_med_logic(id):
         
         #Nếu đó là bệnh nhân nội trú
         if patient == "noitru":
-            danhsach = db.child("patient").child("noitru").child(id).child("add_med").push(data)
+            db.child("patient").child("noitru").child(id).child("add_med").push(data)
 
             return redirect(url_for("patient_noi"))
         #Nếu đó là bệnh nhân ngoại trú
         else:
-            danhsach = db.child("patient").child("ngoaitru").child(id).child("add_med").push(data)
+            db.child("patient").child("ngoaitru").child(id).child("add_med").push(data)
 
             return redirect(url_for("patient_ngoai")) 
     else:
         return redirect(url_for('welcome'))
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
 
+
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #XỬ LÍ LIÊN QUAN ĐẾN TÀI CHÍNH
-#\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#LIÊN QUAN ĐẾN INCOME
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+@app.route("/fiancial/income_input")
+def income_input():
+    if person["is_logged_in"] == True:
+        return render_template("fiancial_income_input.html")
+    else:
+        return redirect(url_for("welcome"))
+
+@app.route("/fiancial/income")
+def fiancial_income():
+    if person["is_logged_in"] == True:
+        danhsach = db.child("fiancial").child("income").get()
+
+        date_time_now = datetime.datetime.now()
+
+        year = str(date_time_now.year)
+        last_year = str(date_time_now.year-1)
+
+        month = str(date_time_now.month)
+        last_month = str(date_time_now.month-1)
+
+        day = str(date_time_now.day)
+        yesterday = str(date_time_now.day-1)
+
+        ngay = db.child("fiancial").child("income").child(year).child(month).child(day).get().val()
+        ngaytruoc = db.child("fiancial").child("income").child(year).child(month).child(yesterday).get().val()
+
+        thang = db.child("fiancial").child("income").child(year).child(month).get().val()
+        thangtruoc = db.child("fiancial").child("income").child(year).child(last_month).get().val()
+
+        nam = db.child("fiancial").child("income").child(year).get().val()
+        namtruoc = db.child("fiancial").child("income").child(last_year).get().val()
+        # Chuyển đổi JSON thành từ điển
+
+        total = [0,0, 0,0, 0,0]
+        percent = []
+
+        
+
+        if ngay is not None:  # Check if data exists
+            for item in ngay.values():
+                total[0] += int(item["price"])
+        if ngaytruoc is not None:  # Check if data exists
+            for item in ngaytruoc.values():
+                total[1] += int(item["price"])
+        # Tính tổng giá trị của tháng hiện tại
+        if thang is not None:  # Kiểm tra xem có dữ liệu tháng hiện tại không
+            for day_data in thang.values():
+                for item in day_data.values():
+                    total[2] += int(item["price"])
+
+        # Tính tổng giá trị của tháng trước đó
+        if thangtruoc is not None:  # Kiểm tra xem có dữ liệu tháng trước đó không
+            for day_data in thangtruoc.values():
+                for item in day_data.values():
+                    total[3] += int(item["price"])
+
+        # Tính tổng giá trị của năm hiện tại
+        if nam is not None:  # Kiểm tra xem có dữ liệu năm hiện tại không
+            for month_data in nam.values():
+                for day_data in month_data.values():
+                    for item in day_data.values():
+                        total[4] += int(item["price"])
+
+        # Tính tổng giá trị của năm trước đó
+        if namtruoc is not None:  # Kiểm tra xem có dữ liệu năm trước đó không
+            for month_data in namtruoc.values():
+                for day_data in month_data.values():
+                    for item in day_data.values():
+                        total[5] += int(item["price"])
+
+
+        # Trích xuất dữ liệu và biến thành danh sách các dòng
+        # Trích xuất dữ liệu và biến thành danh sách các dòng
+        rows = []
+        for year in danhsach.each():
+            year_data = year.val()
+            for month in year_data:
+                month_data = year_data[month]
+                for day in month_data:
+                    day_data = month_data[day]
+                    for key, item in day_data.items():
+                        rows.append({
+                            'date': item['date'],
+                            'name': item['name'],
+                            'price': item['price']
+                        })
+
+        temp = round( ((total[0]-total[1])/total[1]*100), 2)
+        percent.append(temp)
+        temp = round( ((total[2]-total[3])/total[3]*100), 2)
+        percent.append(temp)
+        temp = round( ((total[4]-total[5])/total[5]*100), 2)
+        percent.append(temp)
+
+        
+        return render_template("fiancial_income.html", rows=rows, total=total, percent=percent)
+    else:
+        return redirect(url_for('welcome'))
+    
+#xử lí logic của khi nhấn input dữ liệu bệnh nhân
+@app.route("/income_logic", methods=["POST", "GET"])
+def income_logic_input():
+    if request.method == "POST":
+        result = request.form
+
+        name = result["name"]
+        date = result["date"]
+        price = result["price"]
+
+        date_time_now = datetime.datetime.now()
+
+        # Lấy năm từ ngày và giờ hiện tại và chuyển thành string
+        year = str(date_time_now.year)
+        month = str(date_time_now.month)
+        day = str(date_time_now.day)
+
+
+        data = {"name": name, "date": date, "price": price}
+
+        db.child("fiancial").child("income").child(year).child(month).child(day).push(data)
+
+        # Render template với dữ liệu từ Firebase
+        return redirect(url_for('fiancial_income'))
+    else:
+        return render_template("fiancial_income.html")
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#LIÊN QUAN ĐẾN EXPENSE
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+@app.route("/fiancial/expense_input")
+def expense_input():
+    if person["is_logged_in"] == True:
+        return render_template("fiancial_expense_input.html")
+    else:
+        return redirect(url_for("welcome"))
+    
+
 #Fiancial route
 @app.route("/fiancial/expense")
 def fiancial_expense():
@@ -518,46 +651,6 @@ def fiancial_expense():
     else:
         return redirect(url_for('welcome'))
     
-@app.route("/fiancial/income")
-def fiancial_income():
-    if person["is_logged_in"] == True:
-        danhsach = db.child("fiancial").child("income").get()
-        # Chuyển đổi JSON thành từ điển
-
-        # Trích xuất dữ liệu và biến thành danh sách các dòng
-        # Trích xuất dữ liệu và biến thành danh sách các dòng
-        rows = []
-        for year in danhsach.each():
-            year_data = year.val()
-            for month in year_data:
-                month_data = year_data[month]
-                for day in month_data:
-                    day_data = month_data[day]
-                    for key, item in day_data.items():
-                        rows.append({
-                            'date': item['date'],
-                            'name': item['name'],
-                            'price': item['price']
-                        })
-        return render_template("fiancial_income.html", rows=rows)
-    else:
-        return redirect(url_for('welcome'))
-    
-@app.route("/fiancial/expense_input")
-def expense_input():
-    if person["is_logged_in"] == True:
-        return render_template("fiancial_expense_input.html")
-    else:
-        return redirect(url_for("welcome"))
-
-
-@app.route("/fiancial/income_input")
-def income_input():
-    if person["is_logged_in"] == True:
-        return render_template("fiancial_income_input.html")
-    else:
-        return redirect(url_for("welcome"))
-
 #xử lí logic của khi nhấn input dữ liệu bệnh nhân
 @app.route("/expense_logic", methods=["POST", "GET"])
 def expense_logic_input():
@@ -585,38 +678,8 @@ def expense_logic_input():
             
     else:
         return render_template("fiancial_expense.html")
-    
-
-
-#xử lí logic của khi nhấn input dữ liệu bệnh nhân
-@app.route("/income_logic", methods=["POST", "GET"])
-def income_logic_input():
-    if request.method == "POST":
-        result = request.form
-
-        name = result["name"]
-        date = result["date"]
-        price = result["price"]
-
-        date_time_now = datetime.datetime.now()
-
-        # Lấy năm từ ngày và giờ hiện tại và chuyển thành string
-        year = str(date_time_now.year)
-        month = str(date_time_now.month)
-        day = str(date_time_now.day)
-
-
-        data = {"name": name, "date": date, "price": price}
-
-        db.child("fiancial").child("income").child(year).child(month).child(day).push(data)
-
-        # Render template với dữ liệu từ Firebase
-        return redirect(url_for('fiancial_income'))
-    else:
-        return render_template("fiancial_income.html")
-#\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-
-
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
 if __name__ == "__main__":
