@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css" rel="stylesheet">
 
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
 </head>
 <body>
     <header class="header">
@@ -166,7 +168,10 @@
      </header>
     <!--Nav end-->
 
-   <h1>ĐÂY LÀ TRANG DASHBOARD</h1>
+   <!-- Địa điểm hiển thị biểu đồ -->
+   <div id="plot_div">
+      {{ plot_div | safe }}
+  </div>
 
 
     <script src="/static/main.js"></script>

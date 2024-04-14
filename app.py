@@ -1,7 +1,9 @@
 import pyrebase
 from flask import Flask, flash, redirect, render_template, request, session, abort, url_for
-import datetime
+from datetime import datetime
 import json
+import plotly.graph_objects as go
+
 
 app = Flask(__name__)
 
@@ -154,10 +156,30 @@ def add_nocache_headers(response):
 #Dashboard
 @app.route("/dashboard")
 def dashboard():
-    if person["is_logged_in"] == True:
-        return render_template("dashboard.html")
-    else:
-        return redirect(url_for('welcome'))
+    patient_count_by_day = {}
+
+    # Lặp qua từng item trong "patient/noitru"
+    for patient_data in db.child("patient").child("noitru").get().each():
+        date_in = patient_data.val().get("date_in", "")
+
+        # Chuyển đổi date_in thành datetime object
+        if date_in:
+            date_in_obj = datetime.strptime(date_in, "%Y-%m-%d")
+
+            # Cập nhật số lượng bệnh nhân đi vào mỗi ngày
+            day_str = date_in_obj.strftime("%Y-%m-%d")
+            patient_count_by_day[day_str] = patient_count_by_day.get(day_str, 0) + 1
+
+    # Chuyển dictionary thành list và sắp xếp theo thời gian
+    patient_count_list = sorted(patient_count_by_day.items(), key=lambda x: x[0])
+
+    # Extracting x and y values from the patient_count_list
+    x_values = [item[0] for item in patient_count_list]
+    y_values = [item[1] for item in patient_count_list]
+
+    fig = go.Figure([go.Bar(x=x_values, y=y_values)])
+    plot_div = fig.to_html(full_html=False, include_plotlyjs=False)
+    return render_template('dashboard.html', plot_div=plot_div)
 #/////////////////////////////////////////////////////
 
 
