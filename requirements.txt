@@ -1,3 +1,4 @@
 Flask
 Gunicorn
 pyrebase4
+plotly
